@@ -17,27 +17,18 @@ class PhenomenaSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def extract(self, movie):
-        title = movie.xpath(".//div[contains(@class, 'event-titulo')]/a/text()").get().strip()
-        details = re.sub("\n|\t|·|&middot|\s{2}", "", movie.xpath(".//div[contains(@class, 'event-datos')]/text()").get()).strip()
+        title = movie.xpath(".//div[contains(@class, 'event-titulo')]/a/text()").get()
+        details = movie.xpath(".//div[contains(@class, 'event-datos')]/text()").get()
+        hour = movie.xpath(".//div[contains(@class, 'event-entrada-hora')]/text()").get()
+        day = movie.xpath("//*[contains(@class, 'clasemensual')]")[0].xpath("./preceding-sibling::div/*[contains(@class, 'dia-titulo')]/text()").get()
         return {
-                "title" : title,
-                "details" : details,
+                "title" : title.strip(),
+                "details" : re.sub("\n|\t|·|&middot|\s{2}", "", details).strip(),
+                "hour" : hour.strip(),
+                "date" : re.sub("\n", "", day).strip()
                 }
-
 
     def parse(self, response):
         day = response.xpath("//*[contains(@class, 'clasemensual')]")[0]
-        movies = day.xpath("//*[contains(@class, 'event-content')]")
-        print (list(map(self.extract, movies)))
+        movies = day.xpath(".//*[contains(@class, 'event-content')]")
         return list(map(self.extract, movies))
-
-        
-
-
-
-    # def parse(self, response):
-    #     page = response.url.split("/")[-2]
-    #     filename = 'quotes-%s.html' % page
-    #     with open(filename, 'wb') as f:
-    #         f.write(response.body)
-    #     self.log('Saved file %s' % filename)

@@ -8,4 +8,6 @@
 
 class VosmoviesPipeline(object):
     def process_item(self, item, spider):
+        print(spider.name)
         return item
+
