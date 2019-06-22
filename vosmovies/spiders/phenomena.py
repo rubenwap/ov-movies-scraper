@@ -25,7 +25,8 @@ class PhenomenaSpider(scrapy.Spider):
                 "title" : title.strip(),
                 "details" : re.sub("\n|\t|·|&middot|\s{2}", "", details).strip(),
                 "hour" : hour.strip(),
-                "date" : re.sub("\n", "", day).strip()
+                "date": re.sub("\n", "", day).strip(),
+                "cinema" : "Phenomena Experience"
                 }
 
     def parse(self, response):
