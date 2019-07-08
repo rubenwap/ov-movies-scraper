@@ -32,4 +32,4 @@ class PhenomenaSpider(scrapy.Spider):
     def parse(self, response):
         day = response.xpath("//*[contains(@class, 'clasemensual')]")[0]
         movies = day.xpath(".//*[contains(@class, 'event-content')]")
-        return list(map(self.extract, movies))
+        return map(self.extract, movies)

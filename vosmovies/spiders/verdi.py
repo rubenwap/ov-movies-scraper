@@ -31,5 +31,5 @@ class VerdiSpider(scrapy.Spider):
 
     def parse(self, response):
         movies = response.xpath("//*[contains(@class, 'carteleraTitulo')]")
-        return list(map(self.extract, movies))
+        return map(self.extract, movies)
 
