@@ -8,7 +8,8 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
-pg_config = {"host": "localhost", "database": "ruben", "user": "ruben", "password": ""}
+pg_config = {"host": "docker.for.mac.host.internal",
+             "database": "ruben", "user": "ruben", "password": ""}
 conn = psycopg2.connect(**pg_config)
 
 
