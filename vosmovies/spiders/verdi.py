@@ -17,7 +17,7 @@ class VerdiSpider(scrapy.Spider):
     def extract(self, movie):
         today_is = datetime.datetime.today().strftime("%A %d de %B de %Y")
         day = movie.xpath(".//following-sibling::table/tr[1]/th/text()").get().strip()
-        hours = movie.xpath(".//following-sibling::table/tr[1]/td/a/text()").getall()
+        hours = [i.strip() for i in list(movie.xpath(".//following-sibling::table/tr[1]/td/a/text()").getall())]
     
         if day.lower() == today_is.lower():
             title = movie.xpath(".//tr/td/@id").get()
@@ -26,7 +26,7 @@ class VerdiSpider(scrapy.Spider):
                 "title": title.strip(),
                 "details": "No details available",
                 "hour": hours,
-                "date": day.strip(),
+                "date": datetime.datetime.strptime(day.strip(), "%A %d de %B de %Y").strftime("%d/%m/%Y"),
                 "cinema": "Verdi",
             }
 

@@ -9,6 +9,9 @@ import scrapy
 
 
 class VosmoviesItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    cinema = scrapy.Field()
+    date = scrapy.Field()
+    details = scrapy.Field()
+    hour = scrapy.Field()
+    title = scrapy.Field()
+

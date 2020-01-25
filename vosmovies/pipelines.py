@@ -7,9 +7,18 @@
 
 import psycopg2
 from psycopg2.extras import RealDictCursor
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-pg_config = {"host": "docker.for.mac.host.internal",
-             "database": "ruben", "user": "ruben", "password": ""}
+
+# pg_config = {"host": "docker.for.mac.host.internal",
+#              "database": "ruben", "user": "ruben", "password": ""}
+pg_config = {"host": os.getenv("HOST"),
+			"database": os.getenv("DB"),
+			"user": os.getenv("USER"),
+			"password": os.getenv("PWD")}
+
 conn = psycopg2.connect(**pg_config)
 
 

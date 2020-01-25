@@ -5,9 +5,11 @@ RUN apt-get update && apt-get install -y \
 ENV LC_ALL es_ES.UTF-8
 ENV LANG es_ES.UTF-8
 ENV LANGUAGE es_ES.UTF-8
-RUN pip install scrapy psycopg2-binary
+RUN pip install scrapy psycopg2-binary python-dotenv
 COPY . /app
 WORKDIR /app/vosmovies
 EXPOSE 5432
-ENTRYPOINT [ "scrapy","crawl","phenomena" ]
+RUN [ "scrapy","crawl","phenomena" ]
+RUN [ "scrapy","crawl","verdi" ]
+
 

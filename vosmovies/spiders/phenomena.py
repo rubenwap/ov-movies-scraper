@@ -2,10 +2,13 @@
 import scrapy
 import datetime
 import re
+import locale
 
 
 class PhenomenaSpider(scrapy.Spider):
     name = "phenomena"
+    locale.setlocale(locale.LC_ALL, "es_ES")
+    year = datetime.datetime.now().year
 
     def __init__(self):
         scrapy.Spider.__init__(self)
@@ -34,7 +37,7 @@ class PhenomenaSpider(scrapy.Spider):
             "title": title.strip(),
             "details": re.sub("\n|\t|·|&middot|\s{2}", "", details).strip(),
             "hour": hour.strip(),
-            "date": re.sub("\n", "", day).strip(),
+            "date": datetime.datetime.strptime(re.sub("\n", "", day).strip() + " " + str(datetime.datetime.now().year), "%A %d %B %Y").strftime("%d/%m/%Y"),
             "cinema": "Phenomena Experience",
         }
 
