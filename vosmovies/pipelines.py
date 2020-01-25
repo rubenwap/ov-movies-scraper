@@ -17,7 +17,8 @@ load_dotenv()
 pg_config = {"host": os.getenv("HOST"),
 			"database": os.getenv("DB"),
 			"user": os.getenv("USER"),
-			"password": os.getenv("PWD")}
+			"password": os.getenv("PWD"),
+             "sslmode": 'require'}
 
 conn = psycopg2.connect(**pg_config)
 

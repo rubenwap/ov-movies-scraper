@@ -9,7 +9,4 @@ RUN pip install scrapy psycopg2-binary python-dotenv
 COPY . /app
 WORKDIR /app/vosmovies
 EXPOSE 5432
-RUN [ "scrapy","crawl","phenomena" ]
-RUN [ "scrapy","crawl","verdi" ]
-
 
