@@ -5,9 +5,9 @@ run:
   phenomena:
     command:
       - scrapy crawl phenomena
-    image: vosmovies
+    image: web
 
   verdi:
     command:
       - scrapy crawl verdi
-    image: vosmovies
+    image: web
