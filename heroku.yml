@@ -2,6 +2,13 @@ build:
   docker:
     web: Dockerfile
 run:
-  phenomena: scrapy crawl phenomena
-  verdi: scrapy crawl verdi
-  
+  phenomena:
+    command:
+      - scrapy crawl phenomena
+    image: vosmovies
+
+run:
+  verdi:
+    command:
+      - scrapy crawl verdi
+    image: vosmovies
