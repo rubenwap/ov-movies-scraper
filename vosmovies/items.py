@@ -14,4 +14,5 @@ class VosmoviesItem(scrapy.Item):
     details = scrapy.Field()
     hour = scrapy.Field()
     title = scrapy.Field()
+    timestamp = scrapy.Field()
 

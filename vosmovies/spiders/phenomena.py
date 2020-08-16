@@ -27,17 +27,20 @@ class PhenomenaSpider(scrapy.Spider):
         details = movie.xpath(".//div[contains(@class, 'event-datos')]/text()").get()
         hour = movie.xpath(
             ".//div[contains(@class, 'event-entrada-hora')]/text()"
-        ).get()
+        ).get().strip()
         day = (
             movie.xpath("//*[contains(@class, 'clasemensual')]")[0]
             .xpath("./preceding-sibling::div/*[contains(@class, 'dia-titulo')]/text()")
             .get()
         )
+        textual_date = datetime.datetime.strptime(re.sub("\n", "", day).strip(
+        ) + " " + str(datetime.datetime.now().year), "%A %d %B %Y").strftime("%d/%m/%Y")
         return {
             "title": title.strip(),
             "details": re.sub("\n|\t|·|&middot|\s{2}", "", details).strip(),
-            "hour": hour.strip(),
-            "date": datetime.datetime.strptime(re.sub("\n", "", day).strip() + " " + str(datetime.datetime.now().year), "%A %d %B %Y").strftime("%d/%m/%Y"),
+            "hour": hour,
+            "date": textual_date,
+            "datetime": datetime.datetime.strptime(textual_date+hour, "%d/%m/%Y%H:%Mh"),
             "cinema": "Phenomena Experience",
         }
 
