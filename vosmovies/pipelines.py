@@ -12,13 +12,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-pg_config = {"host": "docker.for.mac.host.internal",
-             "database": "ruben", "user": "ruben", "password": ""}
-# pg_config = {"host": os.getenv("HOST"),
-# 			"database": os.getenv("DB"),
-# 			"user": os.getenv("USERNAME"),
-# 			"password": os.getenv("PASSWORD"),
-#              "sslmode": 'require'}
+# pg_config = {"host": "docker.for.mac.host.internal",
+#              "database": "ruben", "user": "ruben", "password": ""}
+pg_config = {"host": os.getenv("HOST"),
+			"database": os.getenv("DB"),
+			"user": os.getenv("USERNAME"),
+			"password": os.getenv("PASSWORD"),
+             "sslmode": 'require'}
 
 conn = psycopg2.connect(**pg_config)
 
