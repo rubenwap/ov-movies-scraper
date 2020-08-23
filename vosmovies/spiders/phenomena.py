@@ -23,7 +23,7 @@ class PhenomenaSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse)
 
     def extract(self, movie):
-        title = " - ".join(movie.xpath(".//div[contains(@class, 'event-titulo')]/a/text()").getall())
+        title = " - ".join([item.strip() for item in movie.xpath(".//div[contains(@class, 'event-titulo')]/a/text()").getall()])
         details = movie.xpath(".//div[contains(@class, 'event-datos')]/text()").get()
         hour = movie.xpath(
             ".//div[contains(@class, 'event-entrada-hora')]/text()"
@@ -35,10 +35,8 @@ class PhenomenaSpider(scrapy.Spider):
         )
         textual_date = datetime.datetime.strptime(re.sub("\n", "", day).strip(
         ) + " " + str(datetime.datetime.now().year), "%A %d %B %Y").strftime("%d/%m/%Y")
-        final_title = ""
-        title.forEach(function(i) {final_title = final_title + i})
         return {
-            "title": final_title,
+            "title": title,
             "details": re.sub("\n|\t|·|&middot|\s{2}", "", details).strip(),
             "hour": hour,
             "date": textual_date,
