@@ -1,5 +1,5 @@
 psycopg2==2.8.3
 python-dotenv==0.10.1
-scrapy==1.8.1
+scrapy==1.8.2
 
 
